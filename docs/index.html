@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Rally Club: a native Kotlin badminton game. Learn the controls, match rules, and how to run the project in Android Studio.">
+  <title>Rally Club — App guide</title>
+  <style>
+    :root { color-scheme: dark; --bg:#0c1c1f; --panel:#182e30; --lime:#d0f976; --text:#eef6e8; --muted:#acc1b7; --line:#36504b; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; background:var(--bg); color:var(--text); font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif; }
+    a { color:var(--lime); text-underline-offset:4px; }
+    a:focus-visible { outline:3px solid var(--lime); outline-offset:6px; }
+    .wrap { max-width:1100px; margin:auto; padding:0 32px; }
+    header { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:25px 0; border-bottom:1px solid var(--line); }
+    .brand,.eyebrow { font-size:12px; font-weight:750; letter-spacing:.16em; text-transform:uppercase; }
+    .brand { color:var(--lime); font-size:15px; }
+    nav { display:flex; gap:23px; font-size:13px; }
+    nav a { color:var(--muted); text-decoration:none; }
+    .hero { display:grid; grid-template-columns:1.3fr 1fr; gap:65px; align-items:center; padding:64px 0 48px; }
+    .eyebrow { color:var(--lime); margin:0 0 16px; }
+    h1 { font-size:clamp(48px,7vw,80px); line-height:1.02; letter-spacing:-.065em; margin:0 0 24px; }
+    h1 span { color:var(--lime); }
+    .lead { max-width:500px; color:var(--muted); font-size:18px; }
+    .tags { display:flex; flex-wrap:wrap; gap:8px; margin:23px 0; }
+    .tags span { border:1px solid var(--line); border-radius:30px; padding:4px 12px; font-size:12px; color:var(--muted); }
+    .button { display:inline-block; background:var(--lime); color:var(--bg); border-radius:9px; padding:11px 19px; font-weight:750; font-size:14px; text-decoration:none; }
+    figure { margin:0; padding:20px 28px; border:1px solid var(--line); border-radius:24px; background:var(--panel); }
+    svg { display:block; width:100%; height:auto; max-height:350px; }
+    figcaption { text-align:center; font-size:11px; color:var(--muted); margin-top:10px; letter-spacing:.08em; text-transform:uppercase; }
+    .facts { display:grid; grid-template-columns:repeat(4,1fr); padding:23px 0; border-block:1px solid var(--line); }
+    .fact { padding:0 20px; border-right:1px solid var(--line); }
+    .fact:first-child { padding-left:0; } .fact:last-child { border:0; }
+    .fact strong { display:block; font-size:23px; } .fact span { font-size:12px; color:var(--muted); }
+    section { padding:40px 0; scroll-margin-top:20px; }
+    h2 { font-size:29px; letter-spacing:-.035em; margin:0 0 20px; line-height:1.2; }
+    h3 { margin:0 0 8px; font-size:17px; }
+    p { margin:0 0 14px; }
+    .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .card { background:var(--panel); border:1px solid var(--line); padding:23px; border-radius:14px; }
+    .card p { color:var(--muted); font-size:14px; margin:0; }
+    .number { display:block; color:var(--lime); font:13px/1.4 ui-monospace,monospace; margin-bottom:23px; }
+    .note { color:var(--muted); font-size:14px; margin:18px 0 0; }
+    .split { display:grid; grid-template-columns:1.15fr 1fr; gap:48px; border-top:1px solid var(--line); }
+    ol { padding-left:22px; margin:0; } li { padding-left:5px; margin:0 0 12px; color:var(--muted); font-size:14px; }
+    strong { color:var(--text); }
+    code { font-family:ui-monospace,"Cascadia Code",monospace; font-size:.86em; overflow-wrap:anywhere; }
+    pre { white-space:pre-wrap; overflow-wrap:anywhere; padding:16px; border:1px solid var(--line); border-radius:9px; background:#091719; color:var(--lime); font-size:13px; }
+    .small { font-size:13px; color:var(--muted); }
+    dl { margin:0; font-size:14px; } dt { color:var(--lime); font-weight:600; margin-top:13px; } dd { margin:2px 0 0; color:var(--muted); }
+    .status { border-left:3px solid var(--lime); padding:3px 0 3px 17px; margin-top:22px; }
+    footer { display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; border-top:1px solid var(--line); padding:22px 0 32px; color:var(--muted); font-size:12px; }
+    @media(max-width:720px) { .wrap{padding:0 20px} .hero{grid-template-columns:1fr;gap:28px;padding:38px 0} figure{max-width:360px;width:100%;margin:auto} .cards,.split{grid-template-columns:1fr;gap:16px} .facts{grid-template-columns:repeat(2,1fr);gap:16px} .fact:nth-child(3){padding-left:0} .fact:nth-child(2){border:0} header{align-items:flex-start} nav{gap:12px;flex-wrap:wrap} .split{gap:30px} }
+    @media(prefers-reduced-motion:reduce) { html{scroll-behavior:auto} }
+    @media print { :root{--bg:#fff;--text:#142824;--muted:#354c43;--lime:#325b12;--panel:#f3f6f1;--line:#b6c6ba} body{font-size:11px} .wrap{max-width:none;padding:0} header{padding:8px 0} nav,.button{display:none} .hero{padding:18px 0;gap:24px;grid-template-columns:1.3fr 1fr} h1{font-size:44px} .lead{font-size:13px} figure{padding:10px;max-width:210px;justify-self:end} section{padding:17px 0} h2{font-size:21px;margin-bottom:12px} .card{padding:13px} .card p,li,.note,dl,.small{font-size:10px} .number{margin-bottom:10px} .facts{padding:10px 0} .fact strong{font-size:18px} .split{gap:25px} pre{color:#142824;background:#f3f6f1;padding:9px} footer{padding:9px 0} .cards,figure,.status{break-inside:avoid} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">Rally / Club</div>
+      <nav aria-label="Page sections"><a href="#play">How to play</a><a href="#setup">Run the app</a><a href="#code">The code</a></nav>
+    </header>
+    <main>
+      <div class="hero">
+        <div>
+          <p class="eyebrow">Native Android · App guide</p>
+          <h1>Find your<br><span>rally.</span></h1>
+          <p class="lead">A pocket badminton court built in Kotlin. Move into position, time your return, and send the shuttle past your AI opponent.</p>
+          <div class="tags"><span>Portrait touch play</span><span>Offline gameplay</span><span>Android 6.0+</span></div>
+          <a class="button" href="https://github.com/spiadk/ShuttleRally">View project on GitHub ↗</a>
+        </div>
+        <figure>
+          <svg viewBox="0 0 300 350" role="img" aria-labelledby="court-title court-desc">
+            <title id="court-title">Badminton court illustration</title>
+            <desc id="court-desc">A green singles court with an opponent at the far end, a lime player at the near end, and a shuttle flying over the net. This is an illustration, not an app screenshot.</desc>
+            <rect x="5" y="0" width="290" height="44" rx="9" fill="#0c1c1f"/>
+            <g fill="#eef6e8" font-family="system-ui,sans-serif" text-anchor="middle"><text x="49" y="28" font-size="19">YOU</text><text x="150" y="27" font-size="12" fill="#d0f976">SINGLES</text><text x="251" y="28" font-size="19">AI</text></g>
+            <path d="M52 68H248L287 326H13Z" fill="#1e5f4d" stroke="#acc1b7" stroke-width="2"/>
+            <g fill="none" stroke="#acc1b7" stroke-width="1"><path d="M69 68L37 326M231 68L263 326M49 91H251M38 158H262M25 247H275M17 303H283M150 68V158M150 247V326"/></g>
+            <path d="M30 193H270V213H30Z" fill="#0c1c1f" fill-opacity=".5" stroke="#acc1b7"/>
+            <path d="M30 198H270M30 203H270M30 208H270M60 193V213M90 193V213M120 193V213M150 193V213M180 193V213M210 193V213M240 193V213" stroke="#acc1b7" stroke-opacity=".6" stroke-width=".7"/>
+            <path d="M29 190H271M29 188V224M271 188V224" stroke="#eef6e8" stroke-width="3"/>
+            <ellipse cx="185" cy="114" rx="17" ry="5" fill="#0c1c1f" opacity=".5"/>
+            <circle cx="185" cy="79" r="7" fill="#eef6e8"/><path d="M185 91V106M185 104L177 114M185 104L193 114M185 95L203 90" stroke="#f6a880" stroke-width="7" stroke-linecap="round"/>
+            <ellipse cx="208" cy="81" rx="6" ry="10" fill="none" stroke="#eef6e8" stroke-width="2"/>
+            <ellipse cx="102" cy="291" rx="19" ry="6" fill="#0c1c1f" opacity=".5"/>
+            <circle cx="102" cy="245" r="8" fill="#eef6e8"/><path d="M102 260V278M102 277L92 291M102 277L112 291M102 263L124 258" stroke="#d0f976" stroke-width="9" stroke-linecap="round"/>
+            <path d="M124 258L132 245" stroke="#eef6e8" stroke-width="2"/><ellipse cx="135" cy="236" rx="8" ry="12" fill="none" stroke="#eef6e8" stroke-width="2"/>
+            <ellipse cx="159" cy="284" rx="16" ry="6" fill="none" stroke="#d0f976" stroke-width="2"/>
+            <path d="M168 176Q184 211 159 253" fill="none" stroke="#d0f976" stroke-opacity=".5" stroke-dasharray="4 6"/>
+            <path d="M168 172L160 155H176Z" fill="#eef6e8"/><circle cx="168" cy="172" r="3" fill="#d0f976"/>
+          </svg>
+          <figcaption>Court illustration · Arcade singles</figcaption>
+        </figure>
+      </div>
+      <div class="facts" aria-label="Game at a glance">
+        <div class="fact"><strong>3 levels</strong><span>Easy · Club · Pro</span></div>
+        <div class="fact"><strong>2 shots</strong><span>Clear or smash</span></div>
+        <div class="fact"><strong>11 points</strong><span>Win by two · cap at 15</span></div>
+        <div class="fact"><strong>Your best</strong><span>Rally record saved locally</span></div>
+      </div>
+      <section id="play" aria-labelledby="play-title">
+        <p class="eyebrow">The rhythm of the game</p><h2 id="play-title">Move. Read. Return.</h2>
+        <div class="cards">
+          <article class="card"><span class="number">01 / GET IN POSITION</span><h3>Take the court</h3><p>Choose a difficulty, tap <strong>Let’s play</strong>, then <strong>Serve</strong>. Drag across the lower court to move sideways and follow the lime landing marker.</p></article>
+          <article class="card"><span class="number">02 / TIME YOUR SHOT</span><h3>Wait for the ring</h3><p>When the shuttle is near you and its ring lights up, tap <strong>Clear</strong> or <strong>Smash</strong>. Stay within racket reach. Use one finger to move and another to hit.</p></article>
+          <article class="card"><span class="number">03 / KEEP IT GOING</span><h3>Play the open court</h3><p>A clear buys time; a smash travels faster. Returns aim crosscourt based on your position. Reach 11 with a two-point lead to win, or be first to 15.</p></article>
+        </div>
+        <p class="note">Arcade rules: you serve every rally. Tap the upper-right pause button for a break. Leaving the app pauses play; tap Resume when you return. Your best rally is saved, but an active match resets if Android destroys the app process.</p>
+      </section>
+      <section class="split" aria-label="Project setup and source guide">
+        <div id="setup">
+          <p class="eyebrow">From source to court</p><h2>Run in Android Studio</h2>
+          <ol>
+            <li>Clone or download <a href="https://github.com/spiadk/ShuttleRally">ShuttleRally</a>. Open the project folder containing <code>settings.gradle.kts</code>.</li>
+            <li>Select <strong>JDK 17 or 21</strong> as the Gradle JDK under Settings → Build, Execution, Deployment → Build Tools → Gradle.</li>
+            <li>Sync Gradle and install <strong>SDK Platform 35</strong> and <strong>Build Tools 35.0.0</strong> if prompted. The first sync needs internet access.</li>
+            <li>Select an <strong>Android 6.0+ phone or emulator</strong> and press <strong>Run</strong>.</li>
+          </ol>
+          <p class="small">Windows build and checks:</p>
+          <pre><code>.\gradlew.bat testDebugUnitTest assembleDebug lintDebug</code></pre>
+          <p class="small">macOS/Linux: run <code>chmod +x gradlew</code>, then use <code>./gradlew</code> with the same tasks. Included toolchain: Kotlin 2.1.20 · AGP 8.9.2 · Gradle 8.11.1.</p>
+        </div>
+        <div id="code">
+          <p class="eyebrow">Under the hood</p><h2>Small, native, self-contained.</h2>
+          <p class="small">Android Canvas renders the court and players. Native touch input handles movement and shots. Gameplay needs no account, network permission, WebView, or third-party game engine.</p>
+          <dl>
+            <dt><code>RallyEngine.kt</code></dt><dd>Movement, AI, shot timing, scoring, and match state.</dd>
+            <dt><code>RallyView.kt</code></dt><dd>Court graphics, multi-touch controls, haptics, and saved best rally.</dd>
+            <dt><code>MainActivity.kt</code></dt><dd>Android Activity and pause/resume lifecycle.</dd>
+            <dt><code>RallyEngineTest.kt</code></dt><dd>Four tests covering pause, shot timing, returns, and match reset.</dd>
+          </dl>
+          <div class="status"><p class="small"><strong>Validation status</strong><br>Kotlin sources compiled against Android Studio’s layout library, and all four logic tests passed. APK assembly, Android lint, and device gameplay remain unverified because local SDK access was blocked.</p></div>
+          <p class="note">Accessibility limitation: the Canvas controls do not expose individual TalkBack actions.</p>
+        </div>
+      </section>
+    </main>
+    <footer><span>RALLY / CLUB · Native Kotlin badminton</span><span><a href="../README.md">Project README</a> · <a href="https://github.com/spiadk/ShuttleRally">Source repository ↗</a></span></footer>
+  </div>
+</body>
+</html>
